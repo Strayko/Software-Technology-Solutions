@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AdminPanel.Models
+namespace ST
 {
     public class Category
     {

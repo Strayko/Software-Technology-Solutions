@@ -1,4 +1,4 @@
-﻿namespace AdminPanel.Models
+﻿namespace ST
 {
     public class Blog
     {
