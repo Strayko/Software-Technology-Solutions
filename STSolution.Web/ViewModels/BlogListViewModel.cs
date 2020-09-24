@@ -4,7 +4,7 @@ namespace ST.ViewModels
 {
     public class BlogListViewModel
     {
-        public IEnumerable<Pie> Pies { get; set; }
+        public IEnumerable<Blog> Blogs { get; set; }
         public string CurrentCategory { get; set; }
     }
 }

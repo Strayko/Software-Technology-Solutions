@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ST.ViewModels;
 
 namespace ST.Controllers
 {
@@ -15,8 +16,11 @@ namespace ST.Controllers
 
         public ViewResult List()
         {
-            ViewBag.CurrentCategory = "PHP";
-            return View(_blogRepository.AllBlogs);
+            BlogListViewModel blogListViewModel = new BlogListViewModel();
+            blogListViewModel.Blogs = _blogRepository.AllBlogs;
+
+            blogListViewModel.CurrentCategory = "PHP";
+            return View(blogListViewModel);
         }
     }
 }

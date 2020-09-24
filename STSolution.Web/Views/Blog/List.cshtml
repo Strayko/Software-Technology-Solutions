@@ -1,19 +1,76 @@
-﻿@model IEnumerable<ST.Blog>
+﻿@model BlogListViewModel
 
-<html>
-<head>
-    <title>title</title>
-</head>
-<body>
-<div>
-    <h1>@ViewBag.CurrentCategory</h1>
-    @foreach (var blog in Model)
-    {
-        <div>
-            <h2>@blog.Name</h2>
-            <h3>@blog.Category.CategoryName</h3>
+
+@* <h1>@Model.CurrentCategory</h1> *@
+@* @foreach (var blog in Model.Blogs) *@
+@* { *@
+@*     <div> *@
+@*         <h2>@blog.Name</h2> *@
+@*         <h3>@blog.Category.CategoryName</h3> *@
+@*     </div> *@
+@* } *@
+
+<section class="ftco-section ftco-degree-bg">
+    <div class="container">
+        <div class="row">
+
+            @foreach (var blog in Model.Blogs)
+            {
+                <div class="col-md-4 ftco-animate">
+                    <div class="blog-entry">
+                        <a href="blog-single.html" class="block-20">
+                            <img src="~/lib/images/Java.jpg" class="block-20" alt="">
+                        </a>
+                        <div class="text p-4 d-block">
+                            <div class="meta mb-3">
+                                <div>
+                                    <a href="#">July 12, 2018</a>
+                                </div>
+                                <div>
+                                    <a href="#">Admin</a>
+                                </div>
+                                <div>
+                                    <a href="#" class="meta-chat"><span class="icon-chat"></span> 3</a>
+                                </div>
+                            </div>
+                            <h3 class="heading">
+                                <a href="#">@blog.Name</a>
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
         </div>
-    }
-</div>
-</body>
-</html>
+        <div class="row mt-5">
+            <div class="col text-center">
+                <div class="block-27">
+                    <ul>
+                        <li>
+                            <a href="#">&lt;</a>
+                        </li>
+                        <li class="active">
+                            <span>1</span>
+                        </li>
+                        <li>
+                            <a href="#">2</a>
+                        </li>
+                        <li>
+                            <a href="#">3</a>
+                        </li>
+                        <li>
+                            <a href="#">4</a>
+                        </li>
+                        <li>
+                            <a href="#">5</a>
+                        </li>
+                        <li>
+                            <a href="#">&gt;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
