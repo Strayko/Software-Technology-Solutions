@@ -1,0 +1,19 @@
+﻿@model IEnumerable<ST.Blog>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div>
+    <h1>@ViewBag.CurrentCategory</h1>
+    @foreach (var blog in Model)
+    {
+        <div>
+            <h2>@blog.Name</h2>
+            <h3>@blog.Category.CategoryName</h3>
+        </div>
+    }
+</div>
+</body>
+</html>
