@@ -1,14 +1,11 @@
 ﻿@model BlogListViewModel
 
+@{
+    ViewBag.Title = "Blogs";
+}
 
 @* <h1>@Model.CurrentCategory</h1> *@
-@* @foreach (var blog in Model.Blogs) *@
-@* { *@
-@*     <div> *@
-@*         <h2>@blog.Name</h2> *@
-@*         <h3>@blog.Category.CategoryName</h3> *@
-@*     </div> *@
-@* } *@
+
 
 <section class="ftco-section ftco-degree-bg">
     <div class="container">
@@ -19,7 +16,7 @@
                 <div class="col-md-4 ftco-animate">
                     <div class="blog-entry">
                         <a href="blog-single.html" class="block-20">
-                            <img src="~/lib/images/Java.jpg" class="block-20" alt="">
+                            <img src="@blog.ImageUrl" class="block-20" alt="">
                         </a>
                         <div class="text p-4 d-block">
                             <div class="meta mb-3">
