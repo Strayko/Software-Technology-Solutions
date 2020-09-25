@@ -22,5 +22,14 @@ namespace ST.Controllers
             blogListViewModel.CurrentCategory = "PHP";
             return View(blogListViewModel);
         }
+
+        public IActionResult Details(int id)
+        {
+            var blog = _blogRepository.GetBlogById(id);
+            if (blog == null)
+                return NotFound();
+            return View(blog);
+
+        }
     }
 }
