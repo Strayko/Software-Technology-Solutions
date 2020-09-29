@@ -17,7 +17,7 @@ namespace ST.Controllers
             _categoryRepository = categoryRepository;
         }
 
-        public ViewResult List()
+        public ViewResult Index()
         {
             ViewBag.Current = "Blog";
             
