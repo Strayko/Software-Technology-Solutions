@@ -50,6 +50,7 @@
             @* </li> *@
             <li class="nav-item @(ViewBag.Current == "Blog" ? "active" : "")"><a asp-controller="Blog" asp-action="Index" class="nav-link">Blog</a></li>
             <li class="nav-item @(ViewBag.Current == "Contact" ? "active" : "")"><a asp-controller="Contact" asp-action="Index" class="nav-link">Contact</a></li>
+            <partial name="_LoginPartial"/>
           </ul>
         </div>
       </div>
@@ -126,8 +127,8 @@
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
-
-  <script src="~/lib/js/jquery.min.js"></script>
+@RenderSection("Scripts", required: false)
+<script src="~/lib/js/jquery.min.js"></script>
   <script src="~/lib/js/jquery-migrate-3.0.1.min.js"></script>
   <script src="~/lib/js/popper.min.js"></script>
   <script src="~/lib/js/bootstrap.min.js"></script>
