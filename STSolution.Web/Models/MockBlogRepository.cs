@@ -19,5 +19,10 @@ namespace ST
         {
             return AllBlogs.FirstOrDefault(b => b.BlogId == blogId);
         }
+
+        public void Add(Blog blog)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

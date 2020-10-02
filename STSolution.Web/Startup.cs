@@ -41,6 +41,8 @@ namespace ST
                 options.Password.RequiredUniqueChars = 0;
             });
 
+            services.AddRouting(options => options.LowercaseUrls = true);
+
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
 

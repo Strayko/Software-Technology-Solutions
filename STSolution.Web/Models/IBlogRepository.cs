@@ -6,5 +6,6 @@ namespace ST
     {
         IEnumerable<Blog> AllBlogs { get; }
         Blog GetBlogById(int blogId);
+        void Add(Blog blog);
     }
 }
