@@ -67,7 +67,7 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item">
-                        <a href="{{route('dashboard')}}" class="nav-link">
+                        <a asp-controller="Admin" asp-action="Index" class="nav-link @(ViewBag.Current == "Admin" ? "active" : "")">
                             <i class="nav-icon fas fa-home"></i>
                             <p>
                                 Dashboard
@@ -76,28 +76,10 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="{{route('index-outlets')}}" class="nav-link">
-                            <i class="nav-icon fas fa-store"></i>
+                        <a asp-controller="AdminBlog" asp-action="Index" class="nav-link @(ViewBag.Current == "AdminBlog" ? "active" : "")">
+                            <i class="nav-icon fab fa-blogger-b"></i>
                             <p>
-                                Outlets
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{route('index-cities')}}" class="nav-link">
-                            <i class="nav-icon fas fa-building"></i>
-                            <p>
-                                Cities
-                            </p>
-                        </a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="{{route('index-providers')}}" class="nav-link">
-                            <i class="nav-icon fas fa-address-card"></i>
-                            <p>
-                                Providers
+                                Blogs
                             </p>
                         </a>
                     </li>
@@ -129,8 +111,6 @@
 </div>
 <!-- ./wrapper -->
 
-@RenderSection("Scripts", false)
-
 <script src="~/lib/js/admin/jquery.min.js"></script>
 
 <script src="~/lib/js/admin/jquery-ui.min.js"></script>
@@ -152,5 +132,6 @@
 <script src="~/lib/js/admin/adminlte.js"></script>
 <script src="~/lib/js/admin/dashboard.js"></script>
 <script src="~/lib/js/admin/demo.js"></script>
+@RenderSection("Scripts", false)
 </body>
 </html>

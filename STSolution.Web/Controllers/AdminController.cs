@@ -8,6 +8,8 @@ namespace ST.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Current = "Admin";
+            
             return View();
         }
     }
