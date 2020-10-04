@@ -40,5 +40,19 @@ namespace ST.Controllers
             
             return RedirectToAction("Index");
         }
+
+        [Route("admin/blogs/edit/{blogId}")]
+        public IActionResult Edit(int blogId)
+        {
+            ViewBag.Current = "AdminBlog";
+            
+            var blog = _blogRepository.GetBlogById(blogId);
+            return View(blog);
+        }
+
+        public void Update()
+        {
+            
+        }
     }
 }
