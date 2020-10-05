@@ -2,6 +2,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace ST.Controllers
 {
@@ -36,8 +37,10 @@ namespace ST.Controllers
         [Route("admin/blogs/create")]
         public IActionResult Create(Blog blog)
         {
-            _blogRepository.Add(blog);
+            if (!ModelState.IsValid)
+                return View();
             
+            _blogRepository.Add(blog);
             return RedirectToAction("Index");
         }
 
