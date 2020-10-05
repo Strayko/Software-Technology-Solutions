@@ -50,9 +50,16 @@ namespace ST.Controllers
             return View(blog);
         }
 
-        public void Update()
+        public IActionResult Update(Blog blog)
         {
-            
+            _blogRepository.Update(blog);
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int blogId)
+        {
+            _blogRepository.Delete(blogId);
+            return RedirectToAction("Index");
         }
     }
 }

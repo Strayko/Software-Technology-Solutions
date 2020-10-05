@@ -53,7 +53,20 @@
                                     <tr>
                                         <td>@blog.Name</td>
                                         <td>@blog.ShortDescription</td>
-                                        <td class="d-flex justify-content-center"><a href="/admin/blogs/edit/@blog.BlogId"><button type="button" class="btn btn-primary">View</button></a></td>
+                                        <td class="d-flex justify-content-center">
+                                            <a
+                                                asp-action="Edit"
+                                                asp-controller="AdminBlog"
+                                                asp-route-blogId="@blog.BlogId">
+                                                <button type="button" class="btn btn-primary mr-1">Edit</button>
+                                            </a>
+                                            <a
+                                                asp-action="Delete"
+                                                asp-controller="AdminBlog"
+                                                asp-route-blogId="@blog.BlogId">
+                                                <button type="button" class="btn btn-danger">Delete</button>
+                                            </a>
+                                        </td>
                                     </tr>
                                 }
 

@@ -24,5 +24,15 @@ namespace ST
         {
             throw new System.NotImplementedException();
         }
+
+        public void Update(Blog blog)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
