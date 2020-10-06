@@ -37,6 +37,8 @@ namespace ST.Controllers
         [Route("admin/blogs/create")]
         public IActionResult Create(Blog blog)
         {
+            ViewBag.Current = "AdminBlog";
+            
             if (!ModelState.IsValid)
                 return View();
             
