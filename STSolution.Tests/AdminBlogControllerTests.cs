@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;
 using ST;
@@ -13,39 +9,29 @@ namespace STSolution.Tests
     [TestFixture]
     public class AdminBlogControllerTests
     {
-        
-        Blog blog = new Blog
+        private Mock<IBlogRepository> _blogRepository;
+        private AdminBlogController _adminBlogController;
+
+        [SetUp]
+        public void SetUp()
         {
-            BlogId = 1,
-            Name = "",
-            ShortDescription = "value",
-            LongDescription = "value",
-            ImageUrl = "value",
-            ImageThumbnailUrl = "",
-            Category = null,
-            Notes = "",
-            CategoryId = 2
-        };
+            _blogRepository = new Mock<IBlogRepository>();
+            _adminBlogController = new AdminBlogController(_blogRepository.Object);
+        }
 
         [Test]
         public void GetIndex_FromController_ReturnAllBlogs()
         {
-            var mock = new Mock<IBlogRepository>();
-            mock.Setup(b => b.AllBlogs);
+            _blogRepository.Setup(b => b.AllBlogs);
+            _adminBlogController.Index();
 
-            var adminBlogController = new AdminBlogController(mock.Object);
-            adminBlogController.Index();
-
-            mock.Verify(b => b.AllBlogs, Times.Once);
+            _blogRepository.Verify(b => b.AllBlogs, Times.Once);
         }
 
         [Test]
         public void GetCreate_FromController_ReturnView()
         {
-            var mock = new Mock<IBlogRepository>();
-
-            AdminBlogController adminBlogController = new AdminBlogController(mock.Object);
-            IActionResult result = adminBlogController.Create();
+            IActionResult result = _adminBlogController.Create();
 
             Assert.AreEqual(typeof(ViewResult), result.GetType());
         }
@@ -53,24 +39,37 @@ namespace STSolution.Tests
         [Test]
         public void PostCreate_FromController_SaveBlogToDatabase()
         {
-            var mock = new Mock<IBlogRepository>();
-            var adminBlogController = new AdminBlogController(mock.Object); 
-            
-            adminBlogController.Create(blog);
+            _blogRepository.Setup(b => b.Add(It.IsAny<Blog>()));
 
-            mock.Verify(b => b.Add(blog));
+            _adminBlogController.Create(It.IsAny<Blog>());
+            _blogRepository.Verify(b => b.Add(It.IsAny<Blog>()));
         }
 
         [Test]
         public void GetEdit_FromController_ReturnSingleBlog()
         {
-            var mock = new Mock<IBlogRepository>();
-            mock.Setup(b => b.GetBlogById(It.IsAny<int>()));
+            _blogRepository.Setup(b => b.GetBlogById(It.IsAny<int>()));
 
-            var adminBlogController = new AdminBlogController(mock.Object);
-            adminBlogController.Edit(It.IsAny<int>());
+            _adminBlogController.Edit(It.IsAny<int>());
+            _blogRepository.Verify(b => b.GetBlogById(It.IsAny<int>()), Times.Once);
+        }
 
-            mock.Verify(b => b.GetBlogById(It.IsAny<int>()), Times.Once);
+        [Test]
+        public void UpdateBlog_FromController_ReturnUpdatedBlog()
+        {
+            _blogRepository.Setup(b => b.Update(It.IsAny<Blog>()));
+            _adminBlogController.Update(It.IsAny<Blog>());
+
+            _blogRepository.Verify(b => b.Update(It.IsAny<Blog>()));
+        }
+
+        [Test]
+        public void DeleteBlog_FromController_Return204NoContent()
+        {
+            _blogRepository.Setup(b => b.Delete(It.IsAny<int>()));
+            _adminBlogController.Delete(It.IsAny<int>());
+
+            _blogRepository.Verify(b => b.Delete(It.IsAny<int>()));
         }
     }
 }
