@@ -10,12 +10,12 @@ namespace STSolution.Tests
     [TestFixture]
     public class BlogRepositoryTests
     {
-        private DbContextMock _dbSetContextMock;
+        private DbSetContextMock _dbSetContextMock;
 
         [SetUp]
         public void SetUp()
         {
-            _dbSetContextMock = new DbContextMock();
+            _dbSetContextMock = new DbSetContextMock();
         }
         
         [Test]

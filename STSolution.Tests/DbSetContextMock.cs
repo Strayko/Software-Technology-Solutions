@@ -6,7 +6,7 @@ using ST;
 
 namespace STSolution.Tests
 {
-    public class DbContextMock
+    public class DbSetContextMock
     {
         public DbSet<T> GetQuaryableMockDbSet<T>(Mock<DbSet<T>> mockSet, IQueryable<T> data) where T : class
         {
