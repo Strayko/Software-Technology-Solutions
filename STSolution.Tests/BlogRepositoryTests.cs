@@ -10,21 +10,21 @@ namespace STSolution.Tests
     [TestFixture]
     public class BlogRepositoryTests
     {
-        private DbSetContextMock _dbSetContextMock;
+        private DbSetContextHelperMock _dbSetContextHelperMock;
 
         [SetUp]
         public void SetUp()
         {
-            _dbSetContextMock = new DbSetContextMock();
+            _dbSetContextHelperMock = new DbSetContextHelperMock();
         }
         
         [Test]
         public void GetAll_Blogs_FromDatabase()
         {
-            var data = _dbSetContextMock.ListBlogsQueryable();
+            var data = _dbSetContextHelperMock.ListBlogsQueryable();
 
             var mockSet = new Mock<DbSet<Blog>>();
-            _dbSetContextMock.GetQuaryableMockDbSet(mockSet, data);
+            _dbSetContextHelperMock.ProvideQuaryableMockDbSet(mockSet, data);
 
             var appDbContext = new Mock<IAppDbContext>();
             appDbContext.Setup(b => b.Blogs).Returns(mockSet.Object);
