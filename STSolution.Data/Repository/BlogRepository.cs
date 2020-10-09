@@ -8,9 +8,9 @@ namespace ST
 {
     public class BlogRepository : IBlogRepository
     {
-        private readonly AppDbContext _appDbContext;
+        private readonly IAppDbContext _appDbContext;
 
-        public BlogRepository(AppDbContext appDbContext)
+        public BlogRepository(IAppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }

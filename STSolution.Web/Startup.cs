@@ -45,6 +45,7 @@ namespace ST
 
             services.AddScoped<IBlogRepository, BlogRepository>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IAppDbContext, AppDbContext>();
 
             services.AddHttpContextAccessor();
             services.AddSession();
