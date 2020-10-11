@@ -9,6 +9,6 @@ namespace ST
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Category> Categories { get; set; }
         int SaveChanges();
-        EntityEntry Entry(Object entity);
+        void SetModified(object entity);
     }
 }

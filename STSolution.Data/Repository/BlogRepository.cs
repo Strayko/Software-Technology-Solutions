@@ -36,8 +36,7 @@ namespace ST
 
         public void Update(Blog blog)
         {
-            var entry = _appDbContext.Entry(blog);
-            entry.State = EntityState.Modified;
+            _appDbContext.SetModified(blog);
             _appDbContext.SaveChanges();
         }
 
