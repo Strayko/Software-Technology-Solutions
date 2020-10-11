@@ -13,26 +13,30 @@ namespace STSolution.Tests
     public class BlogRepositoryTests
     {
         private DbSetContextHelperMock _dbSetContextHelperMock;
+        private IQueryable<Blog> _data;
+        private Mock<DbSet<Blog>> _mockSet;
+        private Mock<IAppDbContext> _appDbContext;
+        private BlogRepository _blogRepository;
 
         [SetUp]
         public void SetUp()
         {
             _dbSetContextHelperMock = new DbSetContextHelperMock();
+            _data = _dbSetContextHelperMock.ListBlogsQueryable();
+            
+            _mockSet = new Mock<DbSet<Blog>>();
+            _appDbContext = new Mock<IAppDbContext>();
+            
+            _dbSetContextHelperMock.ProvideQuaryableMockDbSet(_mockSet, _data);
+            _appDbContext.Setup(b => b.Blogs).Returns(_mockSet.Object);
+            
+            _blogRepository = new BlogRepository(_appDbContext.Object);
         }
         
         [Test]
         public void GetAll_Blogs_FromDatabase()
         {
-            var data = _dbSetContextHelperMock.ListBlogsQueryable();
-
-            var mockSet = new Mock<DbSet<Blog>>();
-            _dbSetContextHelperMock.ProvideQuaryableMockDbSet(mockSet, data);
-
-            var appDbContext = new Mock<IAppDbContext>();
-            appDbContext.Setup(b => b.Blogs).Returns(mockSet.Object);
-            
-            var blogRepository = new BlogRepository(appDbContext.Object);
-            var blogs = blogRepository.AllBlogs;
+            var blogs = _blogRepository.AllBlogs;
             
             Assert.AreEqual(3, blogs.Count());
         }
@@ -40,15 +44,7 @@ namespace STSolution.Tests
         [Test]
         public void GetBlog_ById_ReturnSingleBlog()
         {
-            var data = _dbSetContextHelperMock.ListBlogsQueryable();
-            var mockSet = new Mock<DbSet<Blog>>();
-            _dbSetContextHelperMock.ProvideQuaryableMockDbSet(mockSet, data);
-            
-            var appDbContext = new Mock<IAppDbContext>();
-            appDbContext.Setup(b => b.Blogs).Returns(mockSet.Object);
-            
-            var blogRepository = new BlogRepository(appDbContext.Object);
-            var blog = blogRepository.GetBlogById(1);
+            var blog = _blogRepository.GetBlogById(1);
             
             Assert.AreEqual(1, blog.BlogId);
         }
@@ -56,30 +52,30 @@ namespace STSolution.Tests
         [Test]
         public void Save_Blog_ToDatabase()
         {
-            var mockSet = new Mock<DbSet<Blog>>();
-            var appDbContext = new Mock<IAppDbContext>();
-            appDbContext.Setup(b => b.Blogs).Returns(mockSet.Object);
+            _blogRepository.Add(It.IsAny<Blog>());
             
-            var blogRepository = new BlogRepository(appDbContext.Object);
-            blogRepository.Add(It.IsAny<Blog>());
-            
-            mockSet.Verify(m=>m.Add(It.IsAny<Blog>()), Times.Once);
-            appDbContext.Verify(m=>m.SaveChanges(), Times.Once);
+            _mockSet.Verify(m=>m.Add(It.IsAny<Blog>()), Times.Once);
+            _appDbContext.Verify(m=>m.SaveChanges(), Times.Once);
         }
 
         [Test]
-        public void UpdateSingleBlog_Only_ChangedValues()
+        public void UpdateSingle_Blog_ReturnBlog()
         {
-            var mockSet = new Mock<DbSet<Blog>>();
-            var appDbContext = new Mock<IAppDbContext>(); 
-            appDbContext.Setup(b => b.Blogs).Returns(mockSet.Object);
-            appDbContext.Setup(b => b.SetModified(It.IsAny<Blog>()));
+            _appDbContext.Setup(b => b.SetModified(It.IsAny<Blog>()));
             
-            var blogRepository = new BlogRepository(appDbContext.Object);
-            blogRepository.Update(It.IsAny<Blog>());
+            _blogRepository.Update(It.IsAny<Blog>());
 
-            appDbContext.Verify(m=>m.SetModified(It.IsAny<Blog>()));
-            appDbContext.Verify(m=>m.SaveChanges(), Times.Once);
+            _appDbContext.Verify(m=>m.SetModified(It.IsAny<Blog>()), Times.Once);
+            _appDbContext.Verify(m=>m.SaveChanges(), Times.Once);
+        }
+
+        [Test]
+        public void DeleteSingle_Blog_Return204NoContent()
+        {
+            _blogRepository.Delete(It.IsAny<int>());
+            
+            _mockSet.Verify(m=>m.Remove(It.IsAny<Blog>()), Times.Once);
+            _appDbContext.Verify(m=>m.SaveChanges(), Times.Once);
         }
     }
 }
